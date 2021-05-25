@@ -15,54 +15,40 @@ import java.util.List;
 
 public class CentreDetailsAdapter extends RecyclerView.Adapter<CentreDetailsAdapter.ViewHolder>{
 
-    private Context mContext;
+    private LayoutInflater mLayoutInflater;
     private List<CentreDetails> centres;
 
     public CentreDetailsAdapter(Context mContext, List<CentreDetails> centres) {
-        this.mContext = mContext;
+        this.mLayoutInflater = LayoutInflater.from(mContext);
         this.centres = centres;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.centre_details_layout, parent, false);
-        ViewHolder vh = new ViewHolder(v);
-        return  vh;
+        View view = mLayoutInflater.inflate(R.layout.centre_details_layout, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.itemView.setTag(centres.get(position));
-        CentreDetails cd = centres.get(position);
-        holder.mCentreName.setText(cd.getCenterName());
-        holder.mCentreAddress.setText(cd.getCenterAddress());
-        holder.mCentreTimimngs.setText(cd.getCenterFromTime() + " to " + cd.getCenterToTime());
-        holder.mVaccineName.setText(cd.getVaccineName());
-        holder.mFees.setText(cd.getFee_type());
-        holder.mAgeLimit.setText(cd.getAgeLimit());
-        holder.mAvailability.setText(cd.getAvaiableCapacity());
-
+            holder.mCentreName.setText(centres.get(position).getCenterName());
+            holder.mCentreAddress.setText(centres.get(position).getCenterAddress());
+            holder.mCentreTimimngs.setText(centres.get(position).getCenterFromTime() + " to " + centres.get(position).getCenterToTime());
+            holder.mVaccineName.setText(centres.get(position).getVaccineName());
+            holder.mFees.setText(centres.get(position).getFee_type());
+            holder.mAgeLimit.setText(centres.get(position).getAgeLimit());
+            holder.mAvailability.setText(centres.get(position).getAvaiableCapacity());
     }
 
     @Override
     public int getItemCount() {
         return centres.size();
     }
-
-
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView mCentreName;
-        public TextView mCentreAddress;
-        public TextView mCentreTimimngs;
-        public TextView mVaccineName;
-        public TextView mFees;
-        public TextView mAgeLimit;
-        public TextView mAvailability;
-
-        public ViewHolder(@NonNull View itemView) {
+        TextView mCentreName,mCentreAddress,mCentreTimimngs,mVaccineName,mFees,mAgeLimit,mAvailability;
+         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             mCentreName = itemView.findViewById(R.id.centerName);
